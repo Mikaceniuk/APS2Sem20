@@ -6,11 +6,15 @@ import xlsxwriter
 os.system('cls')
 
 def fetchAndCreatePartidoData():
+    print('Buscando dados...')
+
     #Fetching
     resp = requests.get('https://dadosabertos.camara.leg.br/api/v2/partidos?itens=1000')
     partidosDct = json.loads(resp.text)
     partidosLst = partidosDct.get('dados')
 
+    #Pega mais info do partido
+    #e adiciona na list
     for i in range(len(partidosLst)):
         resp = requests.get(partidosLst[i].get('uri'))
         partidoInfoDct = json.loads(resp.text)
@@ -21,6 +25,7 @@ def fetchAndCreatePartidoData():
         del partidosLst[i]['id']
         del partidosLst[i]['uri']
 
+    print('Criando arquivo Excel...')
     #Creating
     workbook = xlsxwriter.Workbook('partidos.xlsx')
     worksheet = workbook.add_worksheet()
@@ -39,5 +44,6 @@ def fetchAndCreatePartidoData():
         worksheet.write('E{}'.format(i + 2), partidosLst[i].get('totalMembros'))
 
     workbook.close()
+    print('Criado arquivo excel "partidos.xlsx" com sucesso!')
 
 fetchAndCreatePartidoData()
