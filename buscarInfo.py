@@ -1,6 +1,6 @@
 import requests
 import json
-import xlsxwriter 
+import xlsxwriter
 
 def fetchAndCreatePartidoData():
     print('Buscando dados dos partidos...')
@@ -45,7 +45,7 @@ def fetchAndCreateDeputadosData():
     print('Buscando dados dos deputados...')
 
     #Fetching
-    resp = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?itens=1')
+    resp = requests.get('https://dadosabertos.camara.leg.br/api/v2/deputados?itens=1000')
     deputadosDct = json.loads(resp.text)
     deputadosLst = deputadosDct.get('dados')
 
