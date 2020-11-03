@@ -1,6 +1,8 @@
 from openpyxl import load_workbook
 
 def converterExcelParaTxt(nomeExcel):
+    print('Convertendo {}'.format(nomeExcel))
+
     path = '{}.xlsx'.format(nomeExcel)
     wb_obj = load_workbook(path)
     f = open('{}.txt'.format(nomeExcel), 'w+')
@@ -25,3 +27,5 @@ def converterExcelParaTxt(nomeExcel):
                     else:
                         f.writelines('{} \n'.format(valor))
     f.close()
+
+    print('Convertido {} com sucesso!'.format(nomeExcel))
